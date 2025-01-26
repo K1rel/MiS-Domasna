@@ -1,12 +1,15 @@
 import 'package:domasna/screens/home_screen.dart';
 import 'package:domasna/screens/map_screen.dart';
+import 'package:domasna/screens/leaderboard_screen.dart';
+import 'package:domasna/screens/profile_edit_screen.dart';
+import 'package:domasna/screens/badges_screen.dart';
+import 'package:domasna/screens/review_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF283618),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 50),
@@ -14,11 +17,23 @@ class ProfileScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.85,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF606C38),
+              image: const DecorationImage(
+                image: AssetImage('images/background.png'),
+                fit: BoxFit.cover,
+              ),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Stack(
               children: [
+                // Add a semi-transparent overlay to ensure text readability
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Transform.translate(
@@ -29,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: const Color(0xFF606C38),
+                          color: const Color(0xFF162927),
                           width: 10,
                         ),
                       ),
@@ -45,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Kiril Gerasimovski',
+                      'USERNAME',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -56,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
                     const Text(
                       'Level 10',
                       style: TextStyle(
-                        color: Colors.white70,
+                        color: Colors.white,
                         fontSize: 14,
                       ),
                     ),
@@ -67,13 +82,11 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: const LinearProgressIndicator(
                           value: 0.8,
-                          backgroundColor: Colors.white24,
+                          backgroundColor: Colors.white,
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    //LESS SPACE HERE
-
                     Flexible(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -90,11 +103,23 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           ProfileButton(
                             text: 'Friends',
-                            onTap: () => {},
+                            onTap: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LeaderboardScreen())
+                              )
+                            },
                           ),
                           ProfileButton(
                             text: 'Badges',
-                            onTap: () => {},
+                            onTap: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BadgesScreen())
+                              )
+                            },
                           ),
                           ProfileButton(
                             text: 'Added spots',
@@ -116,7 +141,12 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           ProfileButton(
                             text: 'My Reviews',
-                            onTap: () => {},
+                            onTap: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ReviewScreen())
+                              )
+                            },
                           ),
                         ],
                       ),
@@ -128,12 +158,14 @@ class ProfileScreen extends StatelessWidget {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              // Handle edit profile action
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ProfileEditScreen()),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFFEFAE0),
-                              foregroundColor:
-                                  const Color.fromARGB(255, 0, 0, 0),
+                              backgroundColor: const Color(0xFFFFFFFF),
+                              foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                               minimumSize: const Size(double.infinity, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -159,9 +191,8 @@ class ProfileScreen extends StatelessWidget {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFFEFAE0),
-                              foregroundColor:
-                                  const Color.fromARGB(255, 0, 0, 0),
+                              backgroundColor: const Color(0xFFFFFFFF),
+                              foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                               minimumSize: const Size(double.infinity, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -202,7 +233,7 @@ class ProfileButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFFEFAE0),
+          backgroundColor: const Color(0xFFFFFFFF),
           foregroundColor: const Color.fromARGB(255, 0, 0, 0),
           minimumSize: const Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
